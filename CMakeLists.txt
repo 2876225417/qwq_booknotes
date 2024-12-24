@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
 project(cookbook)
 set(CMAKE_CXX_STANDARD 23)
+set(USE_LIBRARY OFF)
 
+message(STATUS "Compile sources into a library? ${USE_LIBRARY}")
+
+set(BUILD_SHARED_LIBS OFF)
+
+list(APPEND _sources message.h message.cpp)
 
 add_library(message-objs
     OBJECT
