@@ -1,49 +1,16 @@
-cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.24 FATAL_ERROR)
 
-project(cookbook)
+project(qwq_main)
 set(CMAKE_CXX_STANDARD 23)
-set(USE_LIBRARY OFF)
+set(CMAKE_BUILD_TYPE Release)
 
-message(STATUS "Compile sources into a library? ${USE_LIBRARY}")
 
-set(BUILD_SHARED_LIBS OFF)
-
-list(APPEND _sources message.h message.cpp)
-
-add_library(message-objs
-    OBJECT
-    message.h
-    message.cpp
+add_executable(qwq_main 
+    qwq_main.cpp
+    stack.hpp
+    item.hpp
 )
 
-add_library(message-shared
-    SHARED
-    $<TARGET_OBJECTS:message-objs>
-)
 
-set_target_properties(message-shared
-    PROPERTIES
-    OUTPUT_NAME "message"
-)
 
-add_library(message-static
-    STATIC
-    $<TARGET_OBJECTS:message-objs>
-)
  
-set_target_properties(message-static
-    PROPERTIES
-    OUTPUT_NAME "message"
-)
-
-
-add_executable(cookbook
-    cookbook.cpp
-)
-
-target_link_libraries(cookbook
-    message-static
-)
-
-
-

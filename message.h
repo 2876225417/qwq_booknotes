@@ -7,7 +7,7 @@
 class message {
 public:
 
-    message(const std::string& m): message_(std::move(m)) { }
+    message(const std::string& m);
     
     friend std::ostream& operator<<(std::ostream& os, message& obj) {
         return obj.print_obj(os);
