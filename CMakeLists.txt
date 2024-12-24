@@ -1,22 +1,43 @@
 cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
-project(main)
+project(cookbook)
 set(CMAKE_CXX_STANDARD 23)
 
 
-# find_package(Boost REQUIRED COMPONENTS filesystem system asio beast)
-
-# find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
- 
-find_package(fmt REQUIRED)
-
-add_executable(main
-    tmpt.cpp
-    max.hpp
-    qwq_sort.hpp
-    qwq_big_num.hpp
+add_library(message-objs
+    OBJECT
+    message.h
+    message.cpp
 )
 
-# target_link_libraries(main Boost::asio Boost::beast)
-# target_link_libraries(main Qt6::Core Qt6::Gui Qt6::Widgets)
-# target_link_libraries(main fmt::fmt)
+add_library(message-shared
+    SHARED
+    $<TARGET_OBJECTS:message-objs>
+)
+
+set_target_properties(message-shared
+    PROPERTIES
+    OUTPUT_NAME "message"
+)
+
+add_library(message-static
+    STATIC
+    $<TARGET_OBJECTS:message-objs>
+)
+ 
+set_target_properties(message-static
+    PROPERTIES
+    OUTPUT_NAME "message"
+)
+
+
+add_executable(cookbook
+    cookbook.cpp
+)
+
+target_link_libraries(cookbook
+    message-static
+)
+
+
+
