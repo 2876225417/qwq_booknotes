@@ -6,10 +6,16 @@ set(CMAKE_BUILD_TYPE Release)
 
 
 set(STACK_EXCEPT stack_except)
-
+set(CUSTOM_STRING custom_string)
 
 add_library(${STACK_EXCEPT}
-    stack_except.cpp
+    STATIC
+    stack_except.h stack_except.cpp
+)
+
+add_library(${CUSTOM_STRING}
+    STATIC
+    string.h string.cpp
 )
 
 add_executable(qwq_main 
@@ -18,7 +24,11 @@ add_executable(qwq_main
     item.hpp
 )
 
-target_link_libraries(qwq_main ${STACK_EXCEPT})
+target_link_libraries(qwq_main 
+    ${STACK_EXCEPT}
+    ${CUSTOM_STRING}    
+    
+)
 
 
 

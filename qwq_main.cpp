@@ -11,13 +11,11 @@
 #include <algorithm>
 #include <functional>
 
+#include "string.h"
+
 
 #include "stack_except.h"
 
-template <typename T, int VAL>
-T add(const T& val) {
-    return val + VAL;
-}
 
 #include <vector>
 
@@ -40,10 +38,23 @@ private:
     std::string err_msg_;
 };
 
+template <typename T>
+T add(T a, T b) {
+    return a + b;
+}
+
+template <typename T>
+class test {
+public:
+    test(const T& t): val(std::move(t)) { }
+private:
+    T val;
+};
 
 
 
 int main() {
-
-
+    test t(3);
+    
+    
 }

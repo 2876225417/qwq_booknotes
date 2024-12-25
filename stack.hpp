@@ -14,11 +14,12 @@ namespace qwq_stack {
     template <typename T>
     class stack {
     public:
-        stack();
+        stack(const std::vector<T>&);
         void push(const T&);
         void pop();
         T top() const;
         size_t size() const;
+
         bool empty() const {
             return elems.empty();
         }
@@ -37,7 +38,7 @@ namespace qwq_stack {
 
 
     template <typename T>
-    stack<T>::stack() {}
+    stack<T>::stack(const std::vector<T>& rhs): elems(std::move(rhs)) { }
 
     template <typename T>
     void stack<T>::push(const T& elem) {
@@ -262,9 +263,6 @@ namespace qwq_stack {
         sized_stack() { std::cout << "sized_stack<std::string 5>"; }
     private:
     };
-
-
-
 
 
     namespace modifiers {

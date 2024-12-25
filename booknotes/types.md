@@ -65,3 +65,38 @@ int main() {
     private: double d_;
     };
    ```
+
+
+## 个人理解：
+在类`A`中实现了`operator <type_name> ()`，意思为在`A`的实例(或临时)以`<type_name>`的类型被调用时，会使用对应的`type_name`方法的实现：
+```C++
+// 例如
+
+
+class A {
+public:
+    A(const double& b): b(b_) { }
+    
+    /** 当 A 被以 int 类型调用时会使用下面实现的方法 
+     *  通常是返回 A 中对应的类型的成员
+     *  但是这个可以随便实现
+     */
+    
+    operator int() {
+
+    }
+private:
+    double b_;
+};
+
+
+void op(int a) { }
+
+
+int main() { 
+    op(A(23));
+    /* 对象 A 将会调用 `operator int()`的实现 */
+}
+
+
+```
