@@ -97,5 +97,49 @@ namespace qwq_stack {
             throw std::out_of_range("stack<float*>::pop(): empty stack!");
         return ptr_elems.back();
     }
+
+    template <typename T1, typename T2>
+    class unique_stack {
+    public:
+    private:
+    };
+
+    template <typename T>
+    class unique_stack<T, T> {
+    public:
+        unique_stack(){ std::cout << "(T, T)\n"; }
+    private:
+    };
+
+    template <typename T>
+    class unique_stack<point<double*>, T> {
+    public:
+        unique_stack() { std::cout << "(double*, T)\n"; }
+    private:
+    };
+
+    template <typename T>
+    class unique_stack<T, point<T>*> {
+    public:
+        unique_stack() { std::cout << "(T, pointer<T>*)\n"; }
+    private:
+    };
+
+    template <typename T>
+    class unique_stack<T, T*> {
+    public:
+        unique_stack() { std::cout << "(T, T*)\n"; }
+    private:  
+    };
+
+    template <typename T>
+    class unique_stack<T*, T*> {
+    public:
+        unique_stack() { std::cout << "(T*, T*)\n"; }
+    private:
+    };
+
+
+
 }
 #endif // STACK_HPP_

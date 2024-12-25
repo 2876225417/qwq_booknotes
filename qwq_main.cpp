@@ -51,4 +51,12 @@ int main() {
     s_ptr.push(&f_3);
     std::cout << s_ptr << '\n';
 
+    qwq_stack::unique_stack<point<int>, point<int>> us1; 
+    qwq_stack::unique_stack<point<double*>, point<int>> us2; 
+    qwq_stack::unique_stack<point<int>, point<int>*> us3; 
+    qwq_stack::unique_stack<point<point<int*>>, point<double*>> us4; 
+    qwq_stack::unique_stack<point<int*>*, point<int*>*> us5;
+    qwq_stack::unique_stack<point<double*>, point<double*>> us6;
+
+
 }
