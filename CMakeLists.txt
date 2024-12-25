@@ -22,6 +22,7 @@ add_executable(qwq_main
     qwq_main.cpp
     stack.hpp
     item.hpp
+    optional.hpp
 )
 
 target_link_libraries(qwq_main 

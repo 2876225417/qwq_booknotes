@@ -29,9 +29,11 @@ namespace qwq_stack {
             return os;
         }
         
-        stack(stack<T> const&);
-        stack<T>& operator=(const stack<T>&);
+        // stack(stack<T> const&);
         
+        template <typename T2>
+        stack<T>& operator=(const stack<T2>&);
+
         T& operator[](size_t i) {
             return elems[i];
         }
@@ -58,9 +60,26 @@ namespace qwq_stack {
         return elems.size();
     }
 
+
+    template <typename T>
+    template <typename T2>
+    stack<T>& stack<T>::operator=(const stack<T2>& obj) {
+        if((void*)this == (void*)&obj)
+            return *this;
+
+        elems.clear();
+        stack<T2> tmp(obj);
+        while (!tmp.empty()) {
+            elems.push_back(tmp.top());
+            tmp.pop();
+        }
+        return *this;
+    }  
+
+
     template <typename T>
     void stack<T>::pop() {
-        if (!elems.empty()) 
+        if (elems.empty()) 
             throw std::out_of_range("stack<>::pop(): empty stack!");
         /* if need return
          * T tmp = elems.back();
@@ -72,7 +91,7 @@ namespace qwq_stack {
 
     template <typename T>
     T stack<T>::top() const {
-        if (!elems.empty())
+        if (elems.empty())
             throw std::out_of_range("stack<>::top(): empty stack!");
         return elems.back();
     }

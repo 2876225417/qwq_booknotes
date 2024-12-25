@@ -92,3 +92,41 @@ int main() {
 ```
 
 所以使用`extern`进行外部链接就ok了，但是不知道为什么可以......
+
+
+关于自己实现的`transform`的使用例子：
+```C++
+template <typename T1, typename T2>
+void transform( T1& CONT__1
+              , T1& CONT__2
+              , T2 (*__op__)(const T2&)
+              ) {
+    if (CONT__1.size() != CONT__2.size())
+        throw stack_exception("Not compatible stack!");
+
+    for (size_t i = 0; i < CONT__1.size(); i++) 
+        CONT__2[i] = __op__(CONT__1[i]);
+}
+
+template <typename T, int VAL>
+T add(const T& val) {
+    return val + VAL;
+}
+
+int main() {
+    /* self made stack based on stack */
+    using s_int =  qwq_stack::stack<int>;
+
+    s_int s_int_1({1, 2, 3, 4, 5});
+    s_int s_int_2({0, 1, 2, 3, 4});
+    qwq_stack::modifiers::transform(s_int_1, s_int_2, add_<int, 3>);
+    
+    std::cout << s_int_2;
+}
+```
+
+
+
+
+
+

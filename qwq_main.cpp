@@ -6,6 +6,7 @@
 #include "item.hpp"
 #include "message.h"
 
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -16,8 +17,8 @@
 
 #include "stack_except.h"
 
-
 #include <vector>
+#include <bitset>
 
 #include <exception>
 
@@ -39,36 +40,30 @@ private:
 };
 
 
-template <typename T>
-class test {
-public:
-    test(const T& t): val(std::move(t)) { }
-private:
-    T val;
-};
+#include <optional>
 
+void test_std() {
+    std::optional<int> opt_1(1);
+    std::cout << opt_1.has_value() << '\n'
+              << opt_1.value()     << '\n'
+              << opt_1.value_or(0) << '\n';
 
-void bar(int a){ std::cout << a << "from bar\n"; }
+    std::optional<int> opt_2(std::nullopt);
+    std::cout << opt_2.has_value() << '\n';
+    try {
+        std::ignore = opt_2.value();
+    } catch (const std::bad_optional_access& ex) {
+        std::cerr << ex.what() << '\n';
+    }
+    std::cout << opt_2.value_or(0) << '\n';
 
+    opt_2 = 42;
+    std::cout << opt_2.has_value() << '\n'
+              << opt_2.value()     << '\n'
+              << opt_2.value_or(0) << '\n';
 
-template <const char* name>
-class best { 
-public:
-    best();
-};
-
-template<typename T, int VAL>
-T add_(const T& val) {
-    return val + VAL;
 }
 
-
 int main() {
-    qwq_stack::stack<int> s_int_1({1, 2, 3, 4, 5});
-    qwq_stack::stack<int> s_int_2({0, 1, 2, 3, 4});
-
-    qwq_stack::modifiers::transform(s_int_1, s_int_2, add_<int, 3>);
-    
-    std::cout << s_int_2;
-        
+    test_std();
 }
