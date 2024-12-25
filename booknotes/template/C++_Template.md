@@ -36,3 +36,22 @@ int main() {
 
 
 特化的模板可以和基本类模板的实现完全不同。
+
+**局部特化**
+
+多模板同等程度的匹配：
+如果有多个局部特化同等程度地匹配某个声明，那么就称该声明
+具有二义性：
+```C++
+MyClass<int, int> m; 同等程度匹配 MyClass<T, T> 和 MyClass<T, int>。
+
+MyClass<int*, int*> m; 同等程度匹配
+MyClass<T, T> 和 MyClass<T1*, T2*>
+```
+解决第二种二义性，提供一个指向相同类型指针的特化：
+```C++
+template <typename T>
+class MyClass<T*, T*> {
+    ......
+};
+```

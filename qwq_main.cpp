@@ -56,7 +56,16 @@ int main() {
     qwq_stack::unique_stack<point<int>, point<int>*> us3; 
     qwq_stack::unique_stack<point<point<int*>>, point<double*>> us4; 
     qwq_stack::unique_stack<point<int*>*, point<int*>*> us5;
-    qwq_stack::unique_stack<point<double*>, point<double*>> us6;
+    
+    qwq_stack::default_stack<point<int>> de_stack;
+    point<int> pi_1{ 1, 2, 3 };
+    point<int> pi_2 {3, 4, 5 };
+    point<double> pd_1{ 2.2, 3.3, 4.4 };
+
+    de_stack.push(std::move(pi_1));
+    de_stack.push(std::move(pi_2));
+    
+    std::cout << de_stack << '\n';
 
 
 }
