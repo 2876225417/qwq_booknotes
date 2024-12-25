@@ -9,7 +9,7 @@ set(STACK_EXCEPT stack_except)
 
 
 add_library(${STACK_EXCEPT}
-    stack_except.h stack_except.cpp
+    stack_except.cpp
 )
 
 add_executable(qwq_main 
@@ -18,7 +18,7 @@ add_executable(qwq_main
     item.hpp
 )
 
-target_link_libraries(qwq_main ${STACk_EXCEPT})
+target_link_libraries(qwq_main ${STACK_EXCEPT})
 
 
 

@@ -7,15 +7,9 @@
 #include <vector>
 #include "item.hpp"
 
-
-#include <exception>
+#include "stack_except.h"
 
 namespace qwq_stack {
-
-
-    class stack_exception: public std::exception {
-        
-    };
 
     template <typename T>
     class stack {
@@ -24,6 +18,7 @@ namespace qwq_stack {
         void push(const T&);
         void pop();
         T top() const;
+        size_t size() const;
         bool empty() const {
             return elems.empty();
         }
@@ -47,6 +42,15 @@ namespace qwq_stack {
     template <typename T>
     void stack<T>::push(const T& elem) {
         elems.emplace_back(elem);
+    }
+
+    template <typename T>
+    size_t stack<T>::size() const {
+        if (empty()){
+            std::cerr << "Stack<>::size(): empty stack!";
+            return 0;
+        }
+        return elems.size();
     }
 
     template <typename T>
@@ -78,7 +82,7 @@ namespace qwq_stack {
         inline float* top() const;
         
         friend inline std::ostream& operator<<(std::ostream& os, const stack<float*> obj) {
-            for (auto i: obj.ptr_elems) std::cout << *i << ' ';
+            for (auto i: obj.ptr_elems) os << *i << ' ';
             return os;
         }
 
@@ -191,6 +195,12 @@ namespace qwq_stack {
         return elems.top();
     }
 
+
+    /** sized_stack     
+     *  T for type of element in stack
+     *  MAXSIZE for capacity of stack
+     */
+    using qwq_stack::stack_exception;
     template <typename T, int MAXSIZE>
     class sized_stack {
     public:
@@ -202,14 +212,21 @@ namespace qwq_stack {
             return num_elems <= 0 ? true : false;
         }
         bool full() const {
-            return num_elems == MAXSIZE ? true : false;
+            return num_elems >= MAXSIZE ? true : false;
         }
+
+        friend inline
+        std::ostream& operator<<(std::ostream& os, const sized_stack<T, MAXSIZE>& obj) {
+            for (int i = 0; i < MAXSIZE; i++) os << obj.elems[i] << ' ';
+            return os;
+        }
+
+
     private:
         T elems[MAXSIZE];
         int num_elems;
     };
     
-
     template <typename T, int MAXSIZE>
     sized_stack<T, MAXSIZE>::sized_stack(): num_elems(0) { }
 
@@ -230,12 +247,43 @@ namespace qwq_stack {
     template <typename T, int MAXSIZE>
     T sized_stack<T, MAXSIZE>::top() const {
         if (empty())
-            throw std::out_of_range("sized_stack<T>::empty(): empty stack!");
-        
+            throw stack_exception("sized_stack<>::top(): empty stack!");         
+        return elems[num_elems - 1];
     }
 
 
+    /** specified template overload
+     *  T -> std::string
+     *  MAXSIZE -> 5
+     */
+    template<>
+    class sized_stack<std::string, 5> {
+    public:
+        sized_stack() { std::cout << "sized_stack<std::string 5>"; }
+    private:
+    };
 
+
+
+
+
+    namespace modifiers {
+        /** transform for qwq_stack 
+         *  @prams 
+         *  only support two params functions
+         */
+        template <typename T1, typename T2>
+        void transform( T1& CONT__1
+                      , T1& CONT__2
+                      , T2 (*__op__)(const typename T1::value_type&)
+                      ) {
+            if (CONT__1.size() != CONT__2.size())
+                throw stack_exception("Not compatible stack!");
+
+            for (size_t i = 0; i < CONT__1.size(); i++) 
+                CONT__2[i] == op(CONT__1[i]);
+        }
+    }
 
 }
 #endif // STACK_HPP_

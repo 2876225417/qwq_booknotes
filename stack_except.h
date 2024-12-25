@@ -10,13 +10,17 @@ namespace qwq_stack {
 
     class stack_exception: public std::exception {
     public:
-        explicit stack_exception(const char*);
+        explicit
+        stack_exception(const char*);
 
-        explicit stack_exception(const std::string&);
+        explicit
+        stack_exception(const std::string&);
 
-        virtual ~stack_exception() noexcept;
+        virtual
+        ~stack_exception() noexcept = default;
 
-        virtual const char* what() const noexcept;
+        virtual
+        const char* what() const noexcept override;
 
     protected:
         std::string err_msg_;
