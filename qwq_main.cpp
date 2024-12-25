@@ -38,10 +38,6 @@ private:
     std::string err_msg_;
 };
 
-template <typename T>
-T add(T a, T b) {
-    return a + b;
-}
 
 template <typename T>
 class test {
@@ -52,9 +48,27 @@ private:
 };
 
 
+void bar(int a){ std::cout << a << "from bar\n"; }
+
+
+template <const char* name>
+class best { 
+public:
+    best();
+};
+
+template<typename T, int VAL>
+T add_(const T& val) {
+    return val + VAL;
+}
+
 
 int main() {
-    test t(3);
+    qwq_stack::stack<int> s_int_1({1, 2, 3, 4, 5});
+    qwq_stack::stack<int> s_int_2({0, 1, 2, 3, 4});
+
+    qwq_stack::modifiers::transform(s_int_1, s_int_2, add_<int, 3>);
     
-    
+    std::cout << s_int_2;
+        
 }

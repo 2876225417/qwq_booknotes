@@ -31,6 +31,10 @@ namespace qwq_stack {
         
         stack(stack<T> const&);
         stack<T>& operator=(const stack<T>&);
+        
+        T& operator[](size_t i) {
+            return elems[i];
+        }
 
     private:
         std::vector<T> elems;
@@ -269,17 +273,18 @@ namespace qwq_stack {
         /** transform for qwq_stack 
          *  @prams 
          *  only support two params functions
+         *  available for current stack implementation
          */
         template <typename T1, typename T2>
         void transform( T1& CONT__1
                       , T1& CONT__2
-                      , T2 (*__op__)(const typename T1::value_type&)
+                      , T2 (*__op__)(const T2&)
                       ) {
             if (CONT__1.size() != CONT__2.size())
                 throw stack_exception("Not compatible stack!");
 
             for (size_t i = 0; i < CONT__1.size(); i++) 
-                CONT__2[i] == op(CONT__1[i]);
+                CONT__2[i] = __op__(CONT__1[i]);
         }
     }
 

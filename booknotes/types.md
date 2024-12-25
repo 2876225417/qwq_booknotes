@@ -98,5 +98,29 @@ int main() {
     /* 对象 A 将会调用 `operator int()`的实现 */
 }
 
-
 ```
+
+还有其他的牛逼用法，例如`<type_name>`为函数指针：
+```C++
+void bar(int a){ std::cout << a << "from bar\n"; }
+
+int main() {
+
+    struct T {
+        using FP = void(*)(int);
+        operator FP () const { return bar; }
+
+        /** Errro 
+         * operator void(*)(int) () const { return bar; }
+         */
+    } t;
+
+    t(6);
+    static_cast<void(*)(int)>(t)(6);
+    t.operator T::FP()(6);
+}
+```
+
+疑惑：
+1. 为什么不能直接这样用：`operator void(*)(int) () const { return bar; }`。
+2. 这是什么调用方式`t.operator T::FP()(6);`。

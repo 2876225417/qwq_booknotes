@@ -59,4 +59,36 @@ class MyClass<T*, T*> {
 
 ## 非类型的函数模板参数
 
-要把函数或者操作用作参数的话，这类函数就是相当有用的。
+要把函数或者操作用作参数的话，这类函数就是相当有用的：
+```C++
+#include <iostream>
+#include <vector>
+template <typename T, int VAL>
+T add(const T& a) {
+    return a + VAL;
+}
+
+int main() { 
+    std::vector<int> vi_1{1, 2, 3, 4, 5};
+    std::vector<int> vi_2{1, ,2 3, 4, 5};
+
+    std::transform(vi_1.begin(), vi_1.end(), vi_2.begin(), add<int, 3>);
+}
+```
+
+非类型的模板参数的限制，其中浮点类型`float`和`double`，还有类对象，如`std::string`，都不能作为非类型模板参数。
+
+字符串不能作为模板实参，因为它是内部链接对象：
+```C++
+    template <const char* t>
+    class best {
+
+    };
+
+    constexpr const char* str = "ppqwqqq";
+
+    best<str> b;        // 不行!!!
+    best<"ppqwqqq"> b;  // 不行!!!  
+```
+
+所以使用`extern`进行外部链接就ok了，但是不知道为什么可以......
