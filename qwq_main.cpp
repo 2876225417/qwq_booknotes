@@ -39,10 +39,54 @@ private:
     std::string err_msg_;
 };
 
-
+// from customized
+#include "optional.hpp"
+// from std
 #include <optional>
 
+
+struct A {
+    ~A() { }
+};
+
+
+
+struct C {
+    C(int a, int b): m_a(a), m_b(b) { }
+
+    ~C() {
+        a.~A();
+    }
+private:
+    int m_a, m_b;
+    std::string str;
+    A a;
+};
+
+
+
+
+void test_custom() {
+    
+    using qwq_optional::optional;
+    using qwq_optional::nullopt;
+
+    optional<C> opt_C_1(nullopt);
+
+    std::cout << "customized optional test: \n";
+    optional<int> opt_int_1(1);
+    std::cout << opt_int_1.has_value() << '\n'
+              << opt_int_1.value()     << '\n'
+              << '\n';
+
+
+    optional<double> opt_double_1(nullopt);
+    opt_double_1.value();
+
+}
+ 
 void test_std() {
+    std::cout << "standard optional test: \n";
     std::optional<int> opt_1(1);
     std::cout << opt_1.has_value() << '\n'
               << opt_1.value()     << '\n'
@@ -64,6 +108,32 @@ void test_std() {
 
 }
 
+/* use customized tag structures */
+
+struct compute_cpu_kernel {
+    compute_cpu_kernel() = default;
+} cpu_kernel;
+
+struct compute_gpu_kernel {
+    compute_gpu_kernel() = default;
+} gpu_kernel;
+
+struct compute_kernel {
+    /* restrict ctor params in tag structures */
+    compute_kernel(compute_cpu_kernel) { }
+    compute_kernel(compute_gpu_kernel) { }
+};
+
+compute_kernel ck_1(cpu_kernel);
+compute_kernel ck_2(gpu_kernel);
+
 int main() {
+ 
+
+    test_custom();
+    
+
+
+
     test_std();
 }
