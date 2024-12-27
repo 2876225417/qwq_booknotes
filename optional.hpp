@@ -1,17 +1,26 @@
 #pragma once
 
 #include <exception>
+#include "string.h"
 
 namespace qwq_optional {
     
+    using::qwq_string::custom_string;
+    struct optional_exception: public std::exception {    
+        optional_exception(): m_err_msg(nullptr) { }
+        optional_exception(const char* err_msg): 
+        m_err_msg(const_cast<char*>(err_msg)) { }
 
-    struct optional_exception: public std::exception {
-        optional_exception() = default;
         virtual ~optional_exception() = default;
 
-        const char* what() const noexcept override {
-            return "bad optional access";
+        const char* what() const noexcept override{
+            if (m_err_msg != nullptr)
+                return m_err_msg;
+            return "Bad optional access";
         }
+
+
+        private: custom_string m_err_msg;
     };
     
 
@@ -37,7 +46,7 @@ namespace qwq_optional {
             nullopt_t m_nullopt;
         };
 
-        optional(T val): m_value(val), m_has_value(true) { }
+        optional(T val): m_has_value(true), m_value(val) { }
         optional(nullopt_t): m_has_value(false), m_nullopt() { }
         optional(): m_has_value(false), m_nullopt() { }
 
@@ -53,11 +62,32 @@ namespace qwq_optional {
             return m_has_value;
         }
 
-        T value() const {
+        // lvalue
+        T& value()& {
             if (!m_has_value) 
-                throw optional_exception();
+                throw optional_exception("T& Bad optional access");
             return m_value;
         }
+
+        const T& value() const& {
+            if (!m_has_value)
+                throw optional_exception("const T& bad optional access");
+            return m_value();
+        }
+
+        // rvlaue
+        T&& value() && {
+            if (!m_has_value)
+                throw optional_exception("T&& bad optional access");
+            return m_value;
+        }
+
+        const T&& value() const&& {
+            if (!m_has_value)
+                throw optional_exception("const T&& bad optional access");
+            return m_value;
+        }
+
     
     };
 

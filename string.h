@@ -1,6 +1,7 @@
 #ifndef STRING_H_
 #define STRING_H_
 
+#include <cstddef>
 #include <iostream>
 
 
@@ -20,6 +21,20 @@ namespace qwq_string {
                 os << obj.m_str[cnt++];
             return os;
         }
+
+        friend
+        bool operator==(const custom_string& lhs, std::nullptr_t) {
+            return lhs.m_str == nullptr;
+        }
+
+        operator const char* () {
+            return m_str;
+        }
+        
+        operator const char* () const {
+            return m_str;
+        }
+
 
     private:
         char* m_str;
