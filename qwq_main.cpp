@@ -44,6 +44,16 @@ private:
 // from std
 #include <optional>
 
+struct C {
+    C(int a, int b): m_a(a), m_b(b) { }
+
+private:
+    int m_a;
+    int m_b;
+};
+
+
+
 void test_custom() {
     
     using qwq_optional::optional;
@@ -60,10 +70,8 @@ void test_custom() {
               << opt_int_1.value()     << '\n'
               << '\n';
 
-
     optional<double> opt_double_1(nullopt);
     opt_double_1.value();
-
 }
  
 void test_std() {
@@ -109,28 +117,11 @@ compute_kernel ck_1(cpu_kernel);
 compute_kernel ck_2(gpu_kernel);
 
 
-class A {
-public:
 
-
-
-
-private:
-    char* str;
-};
-
-class B {
-
-
-
-private:
-
-};
 
 int main() {
-    
-        
-
+    std::nullptr_t ks;
+    std::cout << ks ? "y" : "n";
 
 
     test_std();

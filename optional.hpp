@@ -9,7 +9,7 @@ namespace qwq_optional {
     struct optional_exception: public std::exception {    
         optional_exception(): m_err_msg(nullptr) { }
         optional_exception(const char* err_msg): 
-        m_err_msg(const_cast<char*>(err_msg)) { }
+        m_err_msg(const_cast<char*>(err_msg)) { }    
 
         virtual ~optional_exception() = default;
 
@@ -18,8 +18,6 @@ namespace qwq_optional {
                 return m_err_msg;
             return "Bad optional access";
         }
-
-
         private: custom_string m_err_msg;
     };
     
