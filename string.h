@@ -23,7 +23,7 @@ namespace qwq_string {
             return os;
         }
 
-        friend
+        friend inline
         bool operator==(const custom_string& lhs, std::nullptr_t) {
             std::cout << "Compared with nullptr_t\n";
             return lhs.m_str == nullptr;
@@ -33,15 +33,13 @@ namespace qwq_string {
             return m_str;
         }
 
-        operator bool () {
-            std::cout << "bool() const!\n";
-            return m_str == nullptr;
-        }
-
         operator const char* () const {
             return m_str;
         }
 
+        operator bool () {
+            return m_str == nullptr;
+        }
 
     private:
         char* m_str;

@@ -1,5 +1,6 @@
 
 
+#include "qwq_big_num.hpp"
 #include "stack.hpp"
 
 
@@ -17,6 +18,7 @@
 
 #include "stack_except.h"
 
+#include <utility>
 #include <vector>
 #include <bitset>
 
@@ -120,18 +122,52 @@ compute_kernel ck_2(gpu_kernel);
 
 struct A { double x; };
 
+#include <typeindex>
 
 
+const int a = 0;
 
+using qwq = decltype(a);
 
 
 void func(int a){ std::cout << "a"; }
+
+template <typename T>
+constexpr T clone(const T& t) {
+    return t;
+}
+
+template <typename T>
+constexpr T* clone(T* t) {
+    return nullptr;
+}
+
+
+
+void g(int*) { }
+
+
 int main() {
     char* str_ = "ppqwqqq";
-
     qwq_string::custom_string str("qwq");
 
+    std::string str_1("300003333");
+    std::string str_2("100022");
+    
+    std::cout << qwq_big_num::big_int_multiply(str_1, str_2);
+
+    qwq_big_num::big_int_division(str_1, "0");
+
+    g(0);
+    g(nullptr);
+    g(NULL);
+
+
+    g(clone(nullptr));
+
+
     if (str) std::cout << "str: nullptr!";
+    else std::cout << "str: " << str;
  
     decltype(func)* k = func;
 

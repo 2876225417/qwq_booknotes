@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <exception>
+#include <vector>
 #include "string.h"
 
 
@@ -27,7 +28,8 @@ namespace qwq_big_num {
 
 
 
-    inline std::string big_int_add(const std::string& num_1, const std::string& num_2) {
+    inline
+    std::string big_int_add(const std::string& num_1, const std::string& num_2) {
         if (num_1.size() < num_2.size()) return big_int_add(num_2, num_1);
 
         std::string result = "";
@@ -50,13 +52,15 @@ namespace qwq_big_num {
         return result;
     }
 
-    inline bool is_greater_of_equal(const std::string& num_1, const std::string& num_2) {
+    inline
+    bool is_greater_of_equal(const std::string& num_1, const std::string& num_2) {
         if (num_1.size() > num_2.size()) return true;
         if (num_1.size() < num_2.size()) return false;
         return num_1 >= num_2;
     }
 
-    inline std::string big_int_substract(const std::string& num_1, const std::string& num_2) {
+    inline
+    std::string big_int_substract(const std::string& num_1, const std::string& num_2) {
         if(!is_greater_of_equal(num_1, num_2)) return "-" + big_int_substract(num_2, num_1);
 
         std::string result = "";
@@ -86,14 +90,53 @@ namespace qwq_big_num {
         return result;
     }
 
-    inline std::string big_int_multiply(const std::string num_1, const std::string num_2) {
+    inline
+    std::string big_int_multiply(const std::string& num_1, const std::string& num_2) {
         if (num_1 == "0" || num_2 == "0") return "0";
 
         int len_1 = num_1.size();
         int len_2 = num_2.size();
+
+        std::vector<int> _res(len_1 + len_2, 0);
+
+        for (int i = len_1 - 1; i >= 0; i--) 
+            for (int j = len_2 - 1; j >= 0; j--) {
+                int dig_1 = num_1[i] - '0';
+                int dig_2 = num_2[j] - '0';
+                int pro   = dig_1 * dig_2;
+
+                int pos_1 = i + j;
+                int pos_2 = i + j + 1;
+                // int pos_2 = pos_1 + 1;
+                int sum   = pro + _res[pos_2];
+
+                _res[pos_2] = sum % 10;
+                _res[pos_1] += sum / 10; 
+            }
+        
+        std::string res = "";
+        for (int i = 0; i < _res.size(); i++) 
+            if (!(res.empty() && _res[i] == 0))
+                res += _res[i] + '0';
+
+        return res;
+    }
+
+    inline
+    std::string big_int_divide(const std::string& num_1, const std::string& num_2){
+        if (num_2 == "0")
+            throw num_exception("Cannot divided by 0!");
+        
+        if (num_1 == "0")
+            
+
+
         
 
-    }
+
+
+        return "";
+    } 
 
 
 
