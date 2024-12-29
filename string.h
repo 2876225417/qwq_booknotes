@@ -9,7 +9,8 @@ namespace qwq_string {
     class custom_string {
     public:
         explicit custom_string();
-        explicit custom_string(char* str);
+        explicit custom_string(const char*);
+
         explicit custom_string(const custom_string&);
         explicit custom_string(custom_string&&);
         ~custom_string() noexcept;
@@ -24,13 +25,19 @@ namespace qwq_string {
 
         friend
         bool operator==(const custom_string& lhs, std::nullptr_t) {
+            std::cout << "Compared with nullptr_t\n";
             return lhs.m_str == nullptr;
         }
 
         operator const char* () {
             return m_str;
         }
-        
+
+        operator bool () {
+            std::cout << "bool() const!\n";
+            return m_str == nullptr;
+        }
+
         operator const char* () const {
             return m_str;
         }

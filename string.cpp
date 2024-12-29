@@ -8,11 +8,11 @@
 
 namespace qwq_string {
 
-    custom_string::custom_string(): m_str{ new char[1]('\0') } { }
-
+    //custom_string::custom_string(): m_str{ new char[1]('\0') } { }
+   custom_string::custom_string(): m_str(nullptr) { }
     custom_string::~custom_string() noexcept { delete[] m_str; }
     
-    custom_string::custom_string(char* str) {
+    custom_string::custom_string(const char* str) {
         if (str == nullptr) {
             m_str = new char[1]('\0');
         } else {
@@ -32,6 +32,8 @@ namespace qwq_string {
         m_str = rhs.m_str;
         rhs.m_str = nullptr;
     }
+
+    
 
 
 

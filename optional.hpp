@@ -73,7 +73,7 @@ namespace qwq_optional {
             return m_value();
         }
 
-        // rvlaue
+        // rvalue
         T&& value() && {
             if (!m_has_value)
                 throw optional_exception("T&& bad optional access");

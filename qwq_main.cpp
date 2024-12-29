@@ -116,13 +116,34 @@ struct compute_kernel {
 compute_kernel ck_1(cpu_kernel);
 compute_kernel ck_2(gpu_kernel);
 
+#include <cstddef>
+
+struct A { double x; };
 
 
 
+
+
+
+void func(int a){ std::cout << "a"; }
 int main() {
-    std::nullptr_t ks;
-    std::cout << ks ? "y" : "n";
+    char* str_ = "ppqwqqq";
+
+    qwq_string::custom_string str("qwq");
+
+    if (str) std::cout << "str: nullptr!";
+ 
+    decltype(func)* k = func;
+
+    k(3);
+
+    auto t = k;
+
+    t(4); 
 
 
-    test_std();
+    void (*m)(int) = func;
+    m(5);
+
+    // test_std();
 }
