@@ -157,6 +157,8 @@ int main() {
     std::cout << qwq_big_num::big_int_multiply(str_1, str_2);
 
     qwq_big_num::big_int_division(str_1, "0");
+    
+    // just test git push
 
     g(0);
     g(nullptr);
