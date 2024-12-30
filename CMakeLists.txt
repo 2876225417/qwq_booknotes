@@ -11,6 +11,10 @@ find_package(Boost REQUIRED COMPONENTS
     beast
 )
 
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(glfw3 REQUIRED)
+
 set(STACK_EXCEPT stack_except)
 set(CUSTOM_STRING custom_string)
 
@@ -25,7 +29,7 @@ add_library(${CUSTOM_STRING}
 )
 
 add_executable(qwq_main 
-    qwq_main.cpp
+    gl_main.cpp
     stack.hpp
     item.hpp
     optional.hpp
@@ -33,7 +37,12 @@ add_executable(qwq_main
 
 target_link_libraries(qwq_main 
     ${STACK_EXCEPT}
-    ${CUSTOM_STRING}    
+    ${CUSTOM_STRING}
+    # OpenGL
+    OpenGL::GL
+    GLEW::GLEW
+    glfw
+    # Boost
     Boost::boost
     Boost::system
     Boost::filesystem

@@ -147,39 +147,19 @@ constexpr T* clone(T* t) {
 void g(int*) { }
 
 
+
+#include <GLFW/glfw3.h>
+#include <GL/glew.h>
+
+
+
+
+
 int main() {
-    char* str_ = "ppqwqqq";
-    qwq_string::custom_string str("qwq");
-
-    std::string str_1("300003333");
-    std::string str_2("100022");
-    
-    std::cout << qwq_big_num::big_int_multiply(str_1, str_2);
-
-    qwq_big_num::big_int_division(str_1, "0");
-
-    g(0);
-    g(nullptr);
-    g(NULL);
+    if (!glfwInit()) {
+        std::cerr << "Failed to initialize GLFW!\n";
+        return -1;
+    }    
 
 
-    g(clone(nullptr));
-
-
-    if (str) std::cout << "str: nullptr!";
-    else std::cout << "str: " << str;
- 
-    decltype(func)* k = func;
-
-    k(3);
-
-    auto t = k;
-
-    t(4); 
-
-
-    void (*m)(int) = func;
-    m(5);
-
-    // test_std();
 }
