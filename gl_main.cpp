@@ -21,10 +21,7 @@ void draw_axes() {
 void draw_sine() {
     glBegin(GL_LINE_STRIP); 
     for (float x = -12.56f; x <= 12.56f; x += 0.01f) {
-        float y = sin(x) / 1     + 
-                  sin(3 * x) / 3 +
-                  sin(5 * x) / 5 + 
-                  sin(7 * x) / 7 ;
+        float y = sin(51 * x) / 51;
         glVertex2f(x, y);  
     }
     glEnd();

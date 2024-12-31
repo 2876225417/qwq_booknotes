@@ -33,7 +33,7 @@ add_library(${CUSTOM_STRING}
 )
 
 add_executable(qwq_main 
-    gl_main.cpp
+    qwq_main.cpp
     stack.hpp
     item.hpp
     optional.hpp

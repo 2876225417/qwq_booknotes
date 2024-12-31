@@ -148,18 +148,7 @@ void g(int*) { }
 
 
 
-#include <GLFW/glfw3.h>
-#include <GL/glew.h>
-
-
-
-
-
 int main() {
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW!\n";
-        return -1;
-    }    
 
 
 }
