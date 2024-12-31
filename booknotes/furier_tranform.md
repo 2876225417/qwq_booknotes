@@ -1,10 +1,22 @@
+
+# 傅里叶变换
+
+
+**时域**是惟一客观存在的域，**频域**是一种遵循特定规则的数学范畴。
+
+任何周期函数都可以看作是不同振幅，不同相位**正弦波**的叠加。
+
+傅里叶变换将**时域**和**频域**连接了起来。
+
+用来绘制三角函数图像的函数(`glut` of `OpenGL`)：
+```C++
 #include <GL/glut.h>
 #include <cmath>
 
-#define X_begin  3.14f * 8
-#define X_end   -3.14f * 8
-#define Y_begin  1.f   * 8
-#define Y_end   -1.f   * 8
+#define X_begin  3.14f
+#define X_end   -3.14f
+#define Y_begin  1.f
+#define Y_end   -1.f
 
 void draw_axes() {
     glBegin(GL_LINES);
@@ -20,11 +32,8 @@ void draw_axes() {
 
 void draw_sine() {
     glBegin(GL_LINE_STRIP); 
-    for (float x = -12.56f; x <= 12.56f; x += 0.01f) {
-        float y = sin(x) / 1     + 
-                  sin(3 * x) / 3 +
-                  sin(5 * x) / 5 + 
-                  sin(7 * x) / 7 ;
+    for (float x = -3.14f; x <= 3.14f; x += 0.01f) {
+        float y = sin(x); 
         glVertex2f(x, y);  
     }
     glEnd();
@@ -37,10 +46,10 @@ void initOpenGL() {
     glLoadIdentity();                        
     glMatrixMode(GL_PROJECTION);             
     glLoadIdentity();                        
-    gluOrtho2D( X_begin 
-              , X_end   
-              , Y_begin 
-              , Y_end   
+    gluOrtho2D( X_begin
+              , X_end
+              , Y_begin
+              , Y_end
               ); // 二维正交投影
 }
 
@@ -66,3 +75,39 @@ int main(int argc, char** argv) {
 
     return 0;
 }
+
+```
+$$
+f(x) = sin(x)
+$$
+图像：
+![alt text](image.png)
+
+$$
+f(x) = sin(x) + 0.333sin(3x)
+$$
+
+图像：
+![alt text](image-2.png)
+
+$$
+f(x) = \frac{\sin(x)}{1} + \frac{\sin(3x)}{3} + \frac{sin(5x)}{5} 
+$$
+
+图像：
+![alt text](image-3.png)
+
+$$
+f(x) = \frac{\sin(x)}{1} + \frac{\sin(3x)}{3} + \frac{\sin(5x)}{5} + \frac{\sin(7x)}{7}
+$$
+
+图像：
+![alt text](image-4.png)
+
+以此类推其他的正弦波叠加的情况：
+$$
+f(x) = \sum_{n=1}^{\infin} \frac{\sin(nx)}{n}
+$$
+
+其中
+

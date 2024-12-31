@@ -14,6 +14,7 @@ find_package(Boost REQUIRED COMPONENTS
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
+find_package(fmt REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(freeglut REQUIRED freeglut)
@@ -52,7 +53,9 @@ target_link_libraries(qwq_main
     Boost::filesystem
     Boost::asio
     Boost::beast
+    
     ws2_32
+    fmt
 )
 
 target_include_directories(qwq_main PRIVATE ${freeglut_INCLUDE_DIRS})
