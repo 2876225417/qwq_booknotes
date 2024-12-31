@@ -15,6 +15,9 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(freeglut REQUIRED freeglut)
+
 set(STACK_EXCEPT stack_except)
 set(CUSTOM_STRING custom_string)
 
@@ -42,6 +45,7 @@ target_link_libraries(qwq_main
     OpenGL::GL
     GLEW::GLEW
     glfw
+    ${freeglut_LIBRARIES}
     # Boost
     Boost::boost
     Boost::system
@@ -50,6 +54,8 @@ target_link_libraries(qwq_main
     Boost::beast
     ws2_32
 )
+
+target_include_directories(qwq_main PRIVATE ${freeglut_INCLUDE_DIRS})
 
 
 
